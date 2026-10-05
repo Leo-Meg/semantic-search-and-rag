@@ -4,9 +4,8 @@ Reprendre mon premier programme de TAL, un moteur de recherche, et lui donner l'
 
 **Léo Mégret**, Master Linguistique Informatique, Université Paris Cité
 
-> **État du dépôt, version 1.** C'est la première étape d'un travail que je mène
-> par étapes, chacune dans son propre dossier. Seule la version 1 existe à ce
-> jour. Je publie au fur et à mesure plutôt qu'une fois tout terminé.
+> **État du dépôt, version 2.** Je mène ce travail par étapes, chacune dans son
+> propre dossier. Je publie au fur et à mesure plutôt qu'une fois tout terminé.
 
 ---
 
@@ -26,59 +25,35 @@ gagne et ce que l'on perd.
 
 ---
 
-## Ce qui existe aujourd'hui
+## Les versions publiées
 
-### Version 1, recherche lexicale. Index inversé, TF-IDF, BM25
+| | Dossier | Contenu | Tests |
+|---|---|---|---:|
+| **1** | `1.rag_python_projet` | Recherche lexicale, index inversé, TF-IDF, BM25 | 24 |
+| **2** | `2.rag_python_projet` | Analyse sémantique latente, la première recherche par le sens | 18 |
 
-| Fichier | Ce que j'y fais |
-|---|---|
-| `src/corpus.py` | 20 documents sur le TAL, 18 requêtes annotées et classées par difficulté, normalisation Unicode, mots vides justifiés, racinisation française écrite à la main. |
-| `src/recherche.py` | `IndexInverse` avec deux formules d'IDF, `RechercheTFIDF` en TF logarithmique et cosinus, `RechercheBM25` avec saturation et normalisation de longueur, et les métriques Hit Rate, MRR et MAP. |
-| `tests/test_recherche.py` | 24 tests, dont la vérification que BM25 sature bien la fréquence. |
-
-Origine universitaire. Projet de L3, un moteur de recherche sur un corpus
-d'articles, et le TP de M2 *RAG, semantic search* (Florent Storme), évalué en Hit
-Rate et MAP sur Quora Question Pairs.
+Soit **42 tests** au total. Chaque dossier contient tout le contenu du
+précédent, plus une étape.
 
 ---
 
-## Lancer le code
+## Lancer la dernière version
 
 ```bash
-cd 1.rag_python_projet
-python -m src.corpus
-python -m src.recherche
-python -m tests.test_recherche
+cd 2.rag_python_projet
+python -m src.semantique
+python -m tests.test_semantique
 ```
-
-Aucune dépendance, pas même NumPy.
-
----
-
-## Ce que je retiens de cette étape
-
-**La recherche lexicale est bonne tant que la requête partage des mots avec le
-document.** Dès que ce n'est plus le cas, elle s'effondre. Sur mes requêtes
-sémantiques, celles qui ne partagent aucun terme avec la bonne réponse, je mesure
-0,333.
-
-**Classer les requêtes par difficulté change la lecture des résultats.** Tant que
-je mesurais une moyenne globale, je ne voyais rien. En séparant les requêtes
-lexicales des requêtes sémantiques, l'échec devient visible et localisable.
-
-**La racinisation a ses propres limites.** Le cas `apprentissage` contre
-`apprendre` ne peut être résolu par aucune règle de troncature, il faudrait une
-lemmatisation avec dictionnaire.
 
 ---
 
 ## Ce qui reste ouvert
 
-Deux tiers des requêtes sémantiques échouent, et la raison est chaque fois la
-même, aucun terme partagé entre la requête et le document.
+LSA rattrape une partie des échecs, mais sa projection de requête reste
+lexicale, et deux requêtes sur six n'ont aucun terme connu.
 
-Aucun réglage de BM25 ne répond à cela. C'est la représentation qu'il faudrait
-changer, et je ne sais pas encore par quoi la remplacer.
+Pour aller plus loin il faudrait une représentation apprise sur un corpus bien
+plus grand que le mien. Je ne sais pas encore si cela suffit.
 
 ---
 
@@ -102,6 +77,8 @@ correct.
 que j'attendais, j'écris ce que j'ai trouvé.
 
 **Le code est commenté en français.**
+
+---
 
 ---
 

@@ -4,9 +4,8 @@ Taking up my first NLP program, a search engine, and giving it the evaluation it
 
 **Léo Mégret**, MSc Computational Linguistics, Université Paris Cité
 
-> **Repository status, version 1.** This is the first step of work I am doing in
-> stages, each in its own folder. Only version 1 exists so far. I publish as I go
-> rather than once everything is finished.
+> **Repository status, version 2.** I am doing this work in stages, each in its
+> own folder. I publish as I go rather than once everything is finished.
 
 ---
 
@@ -26,58 +25,35 @@ gained and what is lost.
 
 ---
 
-## What exists today
+## Published versions
 
-### Version 1, lexical search. Inverted index, TF-IDF, BM25
+| | Folder | Contents | Tests |
+|---|---|---|---:|
+| **1** | `1.rag_python_projet` | Lexical search, inverted index, TF-IDF, BM25 | 24 |
+| **2** | `2.rag_python_projet` | Latent semantic analysis, the first search by meaning | 18 |
 
-| File | What I do in it |
-|---|---|
-| `src/corpus.py` | 20 documents about NLP, 18 annotated queries sorted by difficulty, Unicode normalisation, justified stop words, a French stemmer written by hand. |
-| `src/recherche.py` | `IndexInverse` with two IDF formulas, `RechercheTFIDF` with logarithmic TF and cosine, `RechercheBM25` with saturation and length normalisation, and the Hit Rate, MRR and MAP metrics. |
-| `tests/test_recherche.py` | 24 tests, including a check that BM25 does saturate frequency. |
-
-Academic origin. A third-year undergraduate project, a search engine over a corpus
-of articles, and the Master's lab *RAG, semantic search* (Florent Storme),
-evaluated with Hit Rate and MAP on Quora Question Pairs.
+That is **42 tests** in total. Each folder contains everything the previous
+one had, plus one step.
 
 ---
 
-## Running the code
+## Running the latest version
 
 ```bash
-cd 1.rag_python_projet
-python -m src.corpus
-python -m src.recherche
-python -m tests.test_recherche
+cd 2.rag_python_projet
+python -m src.semantique
+python -m tests.test_semantique
 ```
-
-No dependencies, not even NumPy.
-
----
-
-## What I take from this step
-
-**Lexical search is good as long as the query shares words with the document.** As
-soon as it does not, it collapses. On my semantic queries, the ones that share no
-term with the right answer, I measure 0.333.
-
-**Sorting queries by difficulty changes how the results read.** As long as I was
-measuring a global average, I saw nothing. Separating lexical queries from
-semantic ones makes the failure visible and locatable.
-
-**Stemming has its own limits.** The case of `apprentissage` against `apprendre`
-cannot be solved by any truncation rule, it would need dictionary-based
-lemmatisation.
 
 ---
 
 ## What is still open
 
-Two thirds of the semantic queries fail, and the reason is the same every time, no
-shared term between the query and the document.
+LSA recovers part of the failures, but its query projection stays lexical, and
+two queries out of six have no known term at all.
 
-No amount of BM25 tuning answers that. It is the representation that would have to
-change, and I do not yet know what to replace it with.
+Going further would need a representation learned on a corpus much larger than
+mine. I do not yet know whether that is enough.
 
 ---
 
@@ -100,6 +76,8 @@ was wrong or incomplete, I say so and give the correct one.
 expected, I write down what I found.
 
 **The code is commented in French.**
+
+---
 
 ---
 

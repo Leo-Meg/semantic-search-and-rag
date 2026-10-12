@@ -1,13 +1,15 @@
-# Version 2, analyse sémantique latente. La première recherche par le sens
+# Analyse sémantique latente. La première recherche par le sens
 
-> **Où j'en suis.** La version 1 a mesuré l'échec. **0,333** de hit@5 sur les
-> requêtes qui ne partagent aucun mot avec le document attendu. Cette version
+> Étape 2 sur 3 du dépôt.
+
+> **Où j'en suis.** La étape 1 a mesuré l'échec. **0,333** de hit@5 sur les
+> requêtes qui ne partagent aucun mot avec le document attendu. Cette étape
 > applique une SVD à la matrice termes-documents, et découvre à la fois ce que
 > ça règle et ce que ça ne peut pas régler.
 
 ---
 
-## Nouveautés par rapport à la version 1
+## Nouveautés par rapport à l'étape 1
 
 | Fichier | Ce que j'ajoute |
 |---|---|
@@ -108,7 +110,7 @@ aucun de ses termes.
 
 ## Résultat n°3, la limite que LSA ne franchit pas
 
-C'est le résultat que je trouve le plus intéressant de cette version, et je ne
+C'est le résultat que je trouve le plus intéressant de cette étape, et je ne
 l'attendais pas.
 
 | difficulté | termes de la requête présents dans le vocabulaire |
@@ -137,7 +139,7 @@ Sur 20 documents, il n'y a pas assez de co-occurrences pour apprendre que
 sémantique absente de son corpus.**
 
 C'est exactement ce qu'apportent les plongements de phrases pré-entraînés,
-`all-MiniLM-L6-v2` dans mon TP de M2.
+`all-MiniLM-L6-étape 2` dans mon TP de M2.
 
 1. une sémantique apprise **ailleurs**, sur des milliards de mots,
 2. une tokenisation en **sous-mots**, qui garantit qu'aucun terme n'est jamais

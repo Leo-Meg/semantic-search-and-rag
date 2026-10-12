@@ -1,4 +1,6 @@
-# Version 1, recherche lexicale. Index inversé, TF-IDF, BM25
+# Recherche lexicale. Index inversé, TF-IDF, BM25
+
+> Étape 1 sur 3 du dépôt.
 
 > **Où j'en suis.** Je pars du premier programme sérieux que j'ai écrit en TAL,
 > un moteur de recherche, en L3, et je lui donne ce qui lui manquait, une
@@ -7,7 +9,7 @@
 
 ---
 
-## Ce que contient cette version
+## Ce que contient cette étape
 
 | Fichier | Ce que j'y fais |
 |---|---|

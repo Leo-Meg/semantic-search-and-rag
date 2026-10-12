@@ -1,11 +1,11 @@
 # Recherche sémantique, de l'index inversé au RAG
 
-Reprendre mon premier programme de TAL, un moteur de recherche, et lui donner l'évaluation qui lui manquait.
+Reprendre un premier programme de TAL, un moteur de recherche, et lui donner l'évaluation qui lui manquait.
 
-**Léo Mégret**, Master Linguistique Informatique, Université Paris Cité
+**Léo Mégret** — implémentation, notes techniques en français.  
+**Haeeul Hwang** — documentation anglaise, documentation coréenne, relecture.
 
-> **État du dépôt, version 2.** Je mène ce travail par étapes, chacune dans son
-> propre dossier. Je publie au fur et à mesure plutôt qu'une fois tout terminé.
+> **État du dépôt** — étape 2 sur 3, publiée par Léo Mégret.
 
 ---
 
@@ -13,10 +13,10 @@ Reprendre mon premier programme de TAL, un moteur de recherche, et lui donner l'
 
 En L3, mon premier programme sérieux de TAL était un moteur de recherche, avec un
 index inversé, quelques variantes de prétraitement et une pondération TF-IDF. En
-M2, mon TP final était un RAG complet, avec base vectorielle et plongements de
-phrases.
+M2, mon TP final — écrit avec Haeeul — était un RAG complet, avec base
+vectorielle et plongements de phrases.
 
-Trois ans séparent ces deux travaux et le problème est le même, trouver
+Trois ans séparent ces deux travaux et le problème est le même : trouver
 l'information pertinente dans une collection. Ce qui a changé entre les deux,
 c'est la représentation.
 
@@ -25,61 +25,57 @@ gagne et ce que l'on perd.
 
 ---
 
-## Les versions publiées
+## Les étapes
 
-| | Dossier | Contenu | Tests |
-|---|---|---|---:|
-| **1** | `1.rag_python_projet` | Recherche lexicale, index inversé, TF-IDF, BM25 | 24 |
-| **2** | `2.rag_python_projet` | Analyse sémantique latente, la première recherche par le sens | 18 |
+| | Étape | Modules | Tests | Publiée par | Note détaillée (français) |
+|---|---|---|---:|---|---|
+| **1** | Recherche lexicale : index inversé, TF-IDF, BM25 | `src/corpus.py`, `src/recherche.py` | 24 | Léo | [`index-inverse-et-bm25`](notes/index-inverse-et-bm25.md) |
+| **2** | Analyse sémantique latente, la première recherche par le sens | `src/semantique.py` | 18 | Léo | [`analyse-semantique-latente`](notes/analyse-semantique-latente.md) |
 
-Soit **42 tests** au total. Chaque dossier contient tout le contenu du
-précédent, plus une étape.
+**42** tests au total.
 
 ---
 
-## Lancer la dernière version
+## Ce que chaque étape a trouvé
+
+**1. Recherche lexicale : index inversé, TF-IDF, BM25**  
+Globalement les deux moteurs font environ 78 % et semblent équivalents. En séparant les requêtes par difficulté, ils ne le sont pas : la moyenne cachait le seul cas qui comptait.
+
+**2. Analyse sémantique latente, la première recherche par le sens**  
+Sur des requêtes lexicalement disjointes, le moteur lexical obtient 1,000 quand les termes se recouvrent et 0,333 quand ils ne se recouvrent pas. La SVD est le moment où un moteur cesse de comparer des chaînes.
+
+---
+
+## Lancer le code
 
 ```bash
-cd 2.rag_python_projet
 python -m src.semantique
+
+python -m tests.test_recherche
 python -m tests.test_semantique
 ```
 
 ---
 
-## Ce qui reste ouvert
+## Comment nous travaillons
 
-LSA rattrape une partie des échecs, mais sa projection de requête reste
-lexicale, et deux requêtes sur six n'ont aucun terme connu.
+**Rien à télécharger.** Le corpus est écrit dans le code. Tous mes
+notebooks de master commençaient par un `wget` vers un serveur universitaire ou
+un montage de Google Drive ; deux ans plus tard, la moitié ne s'exécutent plus.
 
-Pour aller plus loin il faudrait une représentation apprise sur un corpus bien
-plus grand que le mien. Je ne sais pas encore si cela suffit.
-
----
-
-## Comment je travaille
-
-Quatre règles que je me suis données en commençant, et que je compte tenir sur
-tout le dépôt.
-
-**Rien à télécharger.** Le corpus est écrit dans le code. Mes notebooks de master
-commençaient tous par un `wget` vers un serveur universitaire ou un montage de
-Google Drive. Deux ans plus tard, la moitié ne s'exécutent plus.
-
-**Rien n'est affirmé sans mesure.** Chaque chiffre de ce fichier correspond à une
-commande qu'on peut relancer.
+**Rien n'est affirmé sans mesure.** Chaque chiffre de ce fichier correspond à
+une commande qu'on peut relancer.
 
 **Les erreurs de mes rendus sont citées, pas effacées.** Quand un résultat que
-j'avais rendu en cours était faux ou incomplet, je le dis et je donne le résultat
-correct.
+j'avais rendu était faux ou incomplet, je le dis et je donne le bon.
 
 **Les résultats négatifs restent.** Quand une expérience montre l'inverse de ce
 que j'attendais, j'écris ce que j'ai trouvé.
 
-**Le code est commenté en français.**
+**Le code est commenté en français**, parce que c'est la langue dans laquelle je
+l'ai pensé. La documentation est en anglais, et en coréen quand Haeeul est
+passée dessus.
 
 ---
 
----
-
-*Version anglaise, [README.md](README.md).*
+*English: [README.md](README.md) · [CONTRIBUTORS.md](CONTRIBUTORS.md)*
